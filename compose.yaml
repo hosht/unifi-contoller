@@ -1,0 +1,43 @@
+services:
+  unifi-controller:
+    image: lscr.io/linuxserver/unifi-controller:7.1.66-ls157
+    environment:
+      PUID: 1000
+      PGID: 1000
+    ports:
+    - target: 1900
+      host_ip: 127.0.0.1
+      published: 1900
+      protocol: udp
+      mode: host
+    - target: 3478
+      host_ip: 127.0.0.1
+      published: 3478
+      protocol: udp
+      mode: host
+    - target: 8080
+      host_ip: 127.0.0.1
+      published: 8080
+      protocol: tcp
+      mode: host
+    - target: 8443
+      host_ip: 127.0.0.1
+      published: 8443
+      protocol: tcp
+      mode: host
+    - target: 10001
+      host_ip: 127.0.0.1
+      published: 10001
+      protocol: udp
+      mode: host
+    networks:
+    - unifi
+    volumes:
+    - config:/config
+    restart: unless-stopped
+
+networks:
+  unifi:
+
+volumes:
+  config:
